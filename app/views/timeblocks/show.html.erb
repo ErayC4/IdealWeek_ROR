@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @timeblock %>
+
+<div>
+  <%= link_to "Edit this timeblock", edit_timeblock_path(@timeblock) %> |
+  <%= link_to "Back to timeblocks", timeblocks_path %>
+
+  <%= button_to "Delete this timeblock", @timeblock, method: :delete %>
+</div>

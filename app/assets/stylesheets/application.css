@@ -13,3 +13,22 @@
  *= require_tree .
  *= require_self
  */
+.textSmall{
+    font-size: 0.75rem;
+}
+
+.textNormal{
+    font-size: 1.125rem;
+}
+
+.textMedium{
+    font-size: 1.875rem;
+}
+
+.textBig{
+    font-size: 3.75rem;
+}
+
+.textVeryBig{
+    font-size: 5rem;
+}

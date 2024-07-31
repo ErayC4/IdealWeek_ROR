@@ -1,0 +1,43 @@
+<head>
+  <style>
+    /*height = */
+    /*width*/
+    /*margin top = */
+    .timeblock-grid {
+      grid-template-columns: repeat(7, 1fr);
+    }
+    .timeblock {
+      background-color: yellow; 
+      height: 60px
+    }
+
+  </style>
+</head>
+<div id="<%= dom_id timeblock %>" class="timeblock-grid"  style="height: <%= @height %>px;">
+  <div class="timeblock">
+    <p>
+    <strong>Task name:</strong>
+      <%= timeblock.task_name %>
+      <%= @randomText%>
+    </p>
+
+    <p>
+      <%= timeblock.taskStartingTime %>
+    </p>
+
+    <p>
+      <%= timeblock.taskEndingTime %>
+    </p>
+
+    <p>
+      <strong>Repeat On:</strong>
+      <%= timeblock.repeatOnDay %>
+    </p>
+
+    <p>
+      <%= link_to "Show this timeblock", timeblock %>
+    </p>
+  </div>
+  
+</div>
+

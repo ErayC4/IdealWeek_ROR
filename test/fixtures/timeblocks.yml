@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  task_name: MyString
+  taskStartingTime: 2024-07-30 15:12:34
+  taskEndingTime: 2024-07-30 15:12:34
+  repeatOnDay: MyString
+  dailyRepeat: false
+
+two:
+  task_name: MyString
+  taskStartingTime: 2024-07-30 15:12:34
+  taskEndingTime: 2024-07-30 15:12:34
+  repeatOnDay: MyString
+  dailyRepeat: false
