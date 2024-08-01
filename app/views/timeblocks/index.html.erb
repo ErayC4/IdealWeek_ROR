@@ -1,49 +1,69 @@
 <head>
-<style>
+  <style>
     .grid-container {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       grid-template-rows: repeat(24, 1fr);
-      gap: 1px; /* Optional: Abstand zwischen den Zellen */
+      position: relative; /* Wichtig für die Überlagerung */
+      margin: 0 100px;
     }
+
+    .timeblock-grid-container {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      width: 100%; /* 100% Breite minus 2x 100px padding */
+      padding: 0 100px; /* 100px Padding auf beiden Seiten */
+      box-sizing: border-box; /* Inklusive Padding in der Breitenberechnung */
+      position: absolute;
+      margin-top: 121px;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+
     .grid-item {
       border-left: 1px solid #ccc;
       border-bottom: 1px solid #ccc;
-
       padding: 29.5px;
       text-align: center;
     }
-    .timeblock-grid {
-      grid-template-columns: repeat(7, 1fr);
+
+    .timeblock {
+      background-color: yellow; 
+      height: 196px;
+      width: calc((100% - 200px - 32px * 6) / 7); /* Anpassung der Breite um Platz für die Lücken zu schaffen */
+      position: absolute;
+      margin-left: 15px; /* verschieben aller blöcke um 15px */
     }
+
   </style>
 </head>
 
 <p style="color: green"><%= notice %></p>
 
 <div id="timeblocks">
-  <div class="timeblock-grid">
-      <% @timeblocks.each do |timeblock| %>
-        <%= render timeblock %>
-      <% end %>
-  </div>
-  
-<%= link_to "New timeblock", new_timeblock_path %>
+  <%= link_to "New timeblock", new_timeblock_path %>
   <div class="grid-container">
-  <% (0..23).each do |hour| %>
     <% (0..6).each do |day| %>
-      <div class="grid-item">
+      <% (0..23).each do |hour| %>
+        <div class="grid-item"></div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="timeblock-grid-container">
+    <% (0..6).each do |day| %>
+      <div>
         <% @timeblocks.each do |timeblock| %>
           <% if timeblock.repeatOnDay == day %>
-            <%= render timeblock %>
+            <div class="timeblock">
+              <%= render timeblock %>
+            </div>
           <% else %>
             <%= "" %>
           <% end %>
         <% end %>
       </div>
     <% end %>
-  <% end %>
+  </div>
 </div>
-
-</div>
-

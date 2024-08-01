@@ -3,18 +3,11 @@
     /*height = */
     /*width*/
     /*margin top = */
-    .timeblock-grid {
-      grid-template-columns: repeat(7, 1fr);
-    }
-    .timeblock {
-      background-color: yellow; 
-      height: 60px
-    }
-
+    
+    
   </style>
 </head>
 <div id="<%= dom_id timeblock %>" class="timeblock-grid"  style="height: <%= @height %>px;">
-  <div class="timeblock">
     <p>
     <strong>Task name:</strong>
       <%= timeblock.task_name %>
@@ -37,7 +30,6 @@
     <p>
       <%= link_to "Show this timeblock", timeblock %>
     </p>
-  </div>
   
 </div>
 
