@@ -1,6 +1,20 @@
 class TimeblocksController < ApplicationController
   before_action :set_timeblock, only: %i[ show edit update destroy ]
 
+
+
+  # GET /timeblocks or /timeblocks.json
+  def index
+    @timeblocks = Timeblock.all
+        @height = @timeblocks.map { |timeblock| calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) }
+        @color = "red"
+  end
+
+  # GET /timeblocks/1 or /timeblocks/1.json
+  def show
+    @timeblock = Timeblock.find(params[:id])
+
+  end
 ######################################################################
 
   def calculate_height(start_time, end_time)
@@ -18,16 +32,6 @@ class TimeblocksController < ApplicationController
   end
 
 ######################################################################
-
-  # GET /timeblocks or /timeblocks.json
-  def index
-    @timeblocks = Timeblock.all
-    
-  end
-
-  # GET /timeblocks/1 or /timeblocks/1.json
-  def show
-  end
 
   # GET /timeblocks/new
   def new

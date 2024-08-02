@@ -15,7 +15,7 @@
       padding: 0 100px; /* 100px Padding auf beiden Seiten */
       box-sizing: border-box; /* Inklusive Padding in der Breitenberechnung */
       position: absolute;
-      margin-top: 121px;
+      margin-top: 138px;
       top: 0;
       left: 0;
       z-index: 10;
@@ -29,11 +29,10 @@
     }
 
     .timeblock {
-      background-color: yellow; 
-      height: 196px;
       width: calc((100% - 200px - 32px * 6) / 7); /* Anpassung der Breite um Platz für die Lücken zu schaffen */
       position: absolute;
-      margin-left: 15px; /* verschieben aller blöcke um 15px */
+      margin-left: 15px; 
+      background-color: red;
     }
 
   </style>
@@ -56,7 +55,8 @@
       <div>
         <% @timeblocks.each do |timeblock| %>
           <% if timeblock.repeatOnDay == day %>
-            <div class="timeblock">
+            <div class="timeblock" style="height:<%=@height[timeblock.id - 1]%>px">
+              <%= @height[timeblock.id - 1] %>
               <%= render timeblock %>
             </div>
           <% else %>

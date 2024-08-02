@@ -1,20 +1,14 @@
 <head>
   <style>
-    /*height = */
-    /*width*/
-    /*margin top = */
-    
-    
   </style>
 </head>
-<div id="<%= dom_id timeblock %>" class="timeblock-grid"  style="height: <%= @height %>px;">
+<div id="<%= dom_id timeblock %>" style="height: <% @height %>px;">
+
     <p>
     <strong>Task name:</strong>
       <%= timeblock.task_name %>
-      <%= @randomText%>
     </p>
-
-    <p>
+    <p >
       <%= timeblock.taskStartingTime %>
     </p>
 
