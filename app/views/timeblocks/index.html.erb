@@ -55,8 +55,8 @@
       <div>
         <% @timeblocks.each do |timeblock| %>
           <% if timeblock.repeatOnDay == day %>
-            <div class="timeblock" style="height:<%=@height[timeblock.id - 1]%>px">
-              <%= @height[timeblock.id - 1] %>
+            <div class="timeblock" style="height:<%=@minutes[timeblock.id - 1]%>px; margin-top:<%= @marginToBaseline[timeblock.id - 1]%>px; ">
+              <%= @marginToBaseline[timeblock.id - 1]%>
               <%= render timeblock %>
             </div>
           <% else %>

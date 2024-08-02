@@ -6,7 +6,12 @@ class TimeblocksController < ApplicationController
   # GET /timeblocks or /timeblocks.json
   def index
     @timeblocks = Timeblock.all
-        @height = @timeblocks.map { |timeblock| calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) }
+        #caculates how many minutes a timeblock has
+        @minutes = @timeblocks.map { |timeblock| calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) }
+        @roundToHour = @timeblocks.map { |timeblock| roundToHour(timeblock.taskStartingTime)}
+        #baseline = smallest hourly value in timeblocks 
+         
+        @marginToBaseline =  @timeblocks.map { |timeblock | calculate_marging_to_baseline(calculate_baseline(@roundToHour), timeblock.taskStartingTime)}
         @color = "red"
   end
 
@@ -31,6 +36,30 @@ class TimeblocksController < ApplicationController
     time_length.abs
   end
 
+  def roundToHour(start_time)
+    start_time_part = start_time.split(":").map(&:to_i)
+    hour = start_time_part[0]
+  end
+
+  def calculate_baseline(start_times)
+    # Überprüfen, ob das Array leer ist und 6 zurückgeben
+    return 6 if start_times.empty?
+
+    min_value = start_times[0]
+    start_times.each do |num|
+      min_value = num if num < min_value
+    end
+  
+    min_value
+  end
+
+  def calculate_marging_to_baseline(baseline, start_time)
+    time_parts = start_time.split(":").map(&:to_i)
+    hours = time_parts[0]
+    minutes = time_parts[1]
+    time_length = (hours * 60 + minutes)
+    (time_length - (baseline * 60))
+  end
 ######################################################################
 
   # GET /timeblocks/new
