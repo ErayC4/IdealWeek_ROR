@@ -37,6 +37,7 @@
     <%= form.check_box :dailyRepeat %>
   </div>
 
+  <%= form.number_field :user_id, id: :timeblock_user_id, value: current_user.id, type: :hidden%>
   <div>
     <%= form.submit %>
   </div>
