@@ -8,6 +8,11 @@
       margin: 0 100px;
     }
 
+    .weekdays-navbar-container {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      margin: 0 100px;
+    }
     .timeblock-grid-container {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
@@ -42,6 +47,18 @@
 
 <div id="timeblocks">
   <%= link_to "New timeblock", new_timeblock_path %>
+
+  <div class="weekdays-navbar-container">
+    <p>Mon</p>
+    <p>Tue</p>
+    <p>Wed</p>
+    <p>Thu</p>
+    <p>Fri</p>
+    <p>Sat</p>
+    <p>Sun</p>
+
+  </div>
+
   <div class="grid-container">
     <% (0..6).each do |day| %>
       <% (0..23).each do |hour| %>
@@ -54,14 +71,18 @@
     <% (0..6).each do |day| %>
       <div>
         <% @timeblocks.each do |timeblock| %>
-          <% if timeblock.repeatOnDay == day %>
-            <div class="timeblock" style="height:<%=@minutes[timeblock.id - 1]%>px; margin-top:<%= @marginToBaseline[timeblock.id - 1]%>px; ">
-              <%= @marginToBaseline[timeblock.id - 1]%>
-              <%= render timeblock %>
-            </div>
-          <% else %>
-            <%= "" %>
+          <% if timeblock.user == current_user %>
+            <% if timeblock.repeatOnDay == day || timeblock.dailyRepeat == true %>
+              <div class="timeblock" style="height:<%=@minutes[timeblock.id - 1]%>px; margin-top:<%= @marginToBaseline[timeblock.id - 1]%>px; ">
+                <%= @marginToBaseline[timeblock.id - 1]%>
+                <%= @roundedStartingTimeArray %>
+                <%= render timeblock %>
+              </div>
+            <% else %>
+              <%= "" %>
+            <% end %>
           <% end %>
+
         <% end %>
       </div>
     <% end %>
