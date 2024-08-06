@@ -9,7 +9,24 @@ class TimeblocksController < ApplicationController
         #caculates how many minutes a timeblock has
         @minutes = @timeblocks.map { |timeblock| calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) }
         #baseline = smallest hourly value in timeblocks 
-        @roundedStartingTimeArray = @timeblocks.map { |timeblock| roundStartingTimeToHour(timeblock.taskStartingTime)}
+        @is_correct_user = @timeblocks.map do |timeblock|
+          if timeblock.user_id == current_user.id
+            "true"
+          else
+            "false"
+          end
+        end
+        
+        @roundedStartingTimeArray = @timeblocks.map do |timeblock|
+          if timeblock.user_id == current_user.id
+            roundStartingTimeToHour(timeblock.taskStartingTime)
+          else
+            24 
+            #some number over 23, because there is no time where it hits 24, thus, if the user is not the current user, 
+            #it will always be bigger than anytime, which does not screw with the baseline
+          end
+        end
+
         @smallestValueInArray = smallestValueInArray(@roundedStartingTimeArray)
         @marginToBaseline =  @timeblocks.map { |timeblock | calculate_margin_to_baseline(@smallestValueInArray, timeblock.taskStartingTime)}
         @showtest = @timeblocks.map { |timeblock| showtest(timeblock.taskStartingTime)}
@@ -57,7 +74,11 @@ class TimeblocksController < ApplicationController
   end
 
   def calculate_margin_to_baseline(baseline, start_time)
-    baseline
+    start_time_part = start_time.split(":").map(&:to_i)
+    hour = start_time_part[0]
+    minutes = start_time_part[1]
+
+    (hour * 60 + minutes) - (baseline * 60)
   end
   
 ######################################################################
@@ -68,7 +89,7 @@ class TimeblocksController < ApplicationController
     #@timeblock = Timeblock.new
   end
 
-  # GET /timeblocks/1/edit
+  # GET /timeblocks/1/edit00
   def edit
   end
 

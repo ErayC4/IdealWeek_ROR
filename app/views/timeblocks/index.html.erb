@@ -75,7 +75,7 @@
             <% if timeblock.repeatOnDay == day || timeblock.dailyRepeat == true %>
               <div class="timeblock" style="height:<%=@minutes[timeblock.id - 1]%>px; margin-top:<%= @marginToBaseline[timeblock.id - 1]%>px; ">
                 <%= @marginToBaseline[timeblock.id - 1]%>
-                <%= @roundedStartingTimeArray %>
+                  
                 <%= render timeblock %>
               </div>
             <% else %>
