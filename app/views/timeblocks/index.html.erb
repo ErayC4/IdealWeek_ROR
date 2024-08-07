@@ -12,6 +12,7 @@
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       margin: 0 100px;
+      border-bottom: 1px solid #ccc
     }
     .timeblock-grid-container {
       display: grid;
@@ -20,7 +21,7 @@
       padding: 0 100px; /* 100px Padding auf beiden Seiten */
       box-sizing: border-box; /* Inklusive Padding in der Breitenberechnung */
       position: absolute;
-      margin-top: 138px;
+      margin-top: 86px;
       top: 0;
       left: 0;
       z-index: 10;
@@ -32,18 +33,8 @@
       padding: 29.5px;
       text-align: center;
     }
-
-    .timeblock {
-      width: calc((100% - 200px - 32px * 6) / 7); /* Anpassung der Breite um Platz für die Lücken zu schaffen */
-      position: absolute;
-      margin-left: 15px; 
-      background-color: red;
-    }
-
   </style>
 </head>
-
-<p style="color: green"><%= notice %></p>
 
 <div id="timeblocks">
   <%= link_to "New timeblock", new_timeblock_path %>
@@ -56,7 +47,6 @@
     <p>Fri</p>
     <p>Sat</p>
     <p>Sun</p>
-
   </div>
 
   <div class="grid-container">
@@ -73,9 +63,7 @@
         <% @timeblocks.each do |timeblock| %>
           <% if timeblock.user == current_user %>
             <% if timeblock.repeatOnDay == day || timeblock.dailyRepeat == true %>
-              <div class="timeblock" style="height:<%=@minutes[timeblock.id - 1]%>px; margin-top:<%= @marginToBaseline[timeblock.id - 1]%>px; ">
-                <%= @marginToBaseline[timeblock.id - 1]%>
-                  
+              <div >                  
                 <%= render timeblock %>
               </div>
             <% else %>

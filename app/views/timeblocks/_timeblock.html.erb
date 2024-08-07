@@ -1,29 +1,32 @@
 <head>
   <style>
+    .timeblock {
+      /* 100% = breite des ganzen bildschirms, 200px weil 100px margin * 2, 32 * 6 = gap*/
+      width: calc((100% - 200px - 32px * 6) / 7); /* Anpassung der Breite um Platz für die Lücken zu schaffen */
+      position: absolute;
+      margin-left: 15px; 
+      background-color: cyan;
+      align: center;
+    }
   </style>
 </head>
-<div id="<%= dom_id timeblock %>" style="height: <% @height %>px;">
 
-    <p>
-    <strong>Task name:</strong>
-      <%= timeblock.task_name %>
-    </p>
-    <p >
-      <%= timeblock.taskStartingTime %>
-    </p>
-
-    <p>
-      <%= timeblock.taskEndingTime %>
-    </p>
-
-    <p>
-      <strong>Repeat On:</strong>
-      <%= timeblock.repeatOnDay %>
-    </p>
-
-    <p>
-      <%= link_to "Show this timeblock", timeblock %>
-    </p>
-  
-</div>
-
+<% if @minutes && @marginToBaseline %>
+  <% height = @minutes[timeblock.id - 1] rescue nil %>
+  <% margin_top = @marginToBaseline[timeblock.id - 1] rescue nil %>
+  <div id="<%= dom_id(timeblock) %>" class="timeblock" style="height:<%= height %>px; margin-top:<%= margin_top %>px;">
+    <% if height && height < 45 %>
+      <div style="padding-left: 4px">
+        <%= timeblock.task_name %> 
+        <%= timeblock.taskStartingTime %>
+      </div>
+    <% else %>
+      <div style="padding-left: 4px; padding-top: 4px">
+        <%= timeblock.task_name %> 
+        <p style="margin: 0"><%= timeblock.taskStartingTime %> - <%= timeblock.taskEndingTime %> </p>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>Fehlende Daten: @minutes oder @marginToBaseline ist nil</p>
+<% end %>
