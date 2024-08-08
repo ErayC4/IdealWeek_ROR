@@ -1,7 +1,7 @@
 class TimeblocksController < ApplicationController
-  before_action :set_timeblock, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :set_timeblock, only: %i[show edit update destroy]
+  before_action :correct_user, only: %i[show edit update destroy]
 
   # GET /timeblocks or /timeblocks.json
   def index
@@ -29,14 +29,14 @@ class TimeblocksController < ApplicationController
 
         @smallestValueInArray = smallestValueInArray(@roundedStartingTimeArray)
         @marginToBaseline =  @timeblocks.map { |timeblock | calculate_margin_to_baseline(@smallestValueInArray, timeblock.taskStartingTime)}
-        @showtest = @timeblocks.map { |timeblock| showtest(timeblock.taskStartingTime)}
   end
 
   # GET /timeblocks/1 or /timeblocks/1.json
   def show
     @timeblock = Timeblock.find(params[:id])
-
   end
+
+
 ######################################################################
 
   def calculate_height(start_time, end_time)

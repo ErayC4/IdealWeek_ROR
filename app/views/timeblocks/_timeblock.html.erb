@@ -28,5 +28,7 @@
     <% end %>
   </div>
 <% else %>
-  <p>Fehlende Daten: @minutes oder @marginToBaseline ist nil</p>
+  <p><%= timeblock.task_name%></p>
+  <p><%= timeblock.taskStartingTime %></p>
+  <p><%= timeblock.taskEndingTime %></p>
 <% end %>

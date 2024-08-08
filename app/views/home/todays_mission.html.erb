@@ -1,0 +1,16 @@
+
+<%= @dayIndex %>
+
+
+<h1>Todays Mission</h1>
+<% @timeblocks.each do |timeblock| %>
+<% if timeblock.repeatOnDay == @dayIndex && timeblock.user == current_user%>
+    <div>
+    <%= timeblock.task_name %>
+    <%= timeblock.repeatOnDay%>
+    <%= timeblock.taskStartingTime%>
+    <%= timeblock.taskEndingTime%>
+  </div>
+<% end %>
+  
+<% end %>
