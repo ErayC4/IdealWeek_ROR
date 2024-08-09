@@ -63,7 +63,7 @@
         <% @timeblocks.each do |timeblock| %>
           <% if timeblock.user == current_user %>
             <% if timeblock.repeatOnDay == day || timeblock.dailyRepeat == true %>
-              <div >                  
+              <div style="margin-top: <%= calculate_margin_to_baseline(@smallestValueInArray, timeblock.taskStartingTime) %>px">
                 <%= render timeblock %>
               </div>
             <% else %>

@@ -6,62 +6,26 @@ class TimeblocksController < ApplicationController
   # GET /timeblocks or /timeblocks.json
   def index
     @timeblocks = Timeblock.all
-        #caculates how many minutes a timeblock has
-        @minutes = @timeblocks.map { |timeblock| calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) }
-        #baseline = smallest hourly value in timeblocks 
-        @is_correct_user = @timeblocks.map do |timeblock|
-          if timeblock.user_id == current_user.id
-            "true"
-          else
-            "false"
-          end
-        end
-        
-        @roundedStartingTimeArray = @timeblocks.map do |timeblock|
-          if timeblock.user_id == current_user.id
-            roundStartingTimeToHour(timeblock.taskStartingTime)
-          else
-            24 
-            #some number over 23, because there is no time where it hits 24, thus, if the user is not the current user, 
-            #it will always be bigger than anytime, which does not screw with the baseline
-          end
-        end
+    @roundedStartingTimeArray = @timeblocks.map do |timeblock|
+      if timeblock.user_id == current_user.id
+        roundStartingTimeToHour(timeblock.taskStartingTime)
+      else
+        24 
+        #some number over 23, because there is no time where it hits 24, thus, if the user is not the current user, 
+        #it will always be bigger than anytime, which does not screw with the baseline
+      end
+    end
 
-        @smallestValueInArray = smallestValueInArray(@roundedStartingTimeArray)
-        @marginToBaseline =  @timeblocks.map { |timeblock | calculate_margin_to_baseline(@smallestValueInArray, timeblock.taskStartingTime)}
+    @smallestValueInArray = smallestValueInArray(@roundedStartingTimeArray)
   end
 
-  # GET /timeblocks/1 or /timeblocks/1.json
-  def show
-    @timeblock = Timeblock.find(params[:id])
-  end
-
-
-######################################################################
-
-  def calculate_height(start_time, end_time)
-    ending_time_parts = end_time.split(":").map(&:to_i)
-    starting_time_parts = start_time.split(":").map(&:to_i)
-
-    ending_hours = ending_time_parts[0]
-    ending_minutes = ending_time_parts[1]
-    starting_hours = starting_time_parts[0]
-    starting_minutes = starting_time_parts[1]
-
-    time_length = (ending_hours * 60 + ending_minutes) - (starting_hours * 60 + starting_minutes)
-
-    time_length.abs
-  end
-
-  def showtest(start_time)
-    start_time
-  end
 
   def roundStartingTimeToHour(start_time)
     start_time_part = start_time.split(":").map(&:to_i)
     hour = start_time_part[0]
   end
 
+  
   def smallestValueInArray(start_times)
     return 6 if start_times.empty?
     smallest_value = start_times[0]
@@ -72,16 +36,11 @@ class TimeblocksController < ApplicationController
     end
     smallest_value
   end
-
-  def calculate_margin_to_baseline(baseline, start_time)
-    start_time_part = start_time.split(":").map(&:to_i)
-    hour = start_time_part[0]
-    minutes = start_time_part[1]
-
-    (hour * 60 + minutes) - (baseline * 60)
-  end
   
-######################################################################
+  # GET /timeblocks/1 or /timeblocks/1.json
+  def show
+    @timeblock = Timeblock.find(params[:id])
+  end
 
   # GET /timeblocks/new
   def new

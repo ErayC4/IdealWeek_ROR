@@ -11,24 +11,17 @@
   </style>
 </head>
 
-<% if @minutes && @marginToBaseline %>
-  <% height = @minutes[timeblock.id - 1] rescue nil %>
-  <% margin_top = @marginToBaseline[timeblock.id - 1] rescue nil %>
-  <div id="<%= dom_id(timeblock) %>" class="timeblock" style="height:<%= height %>px; margin-top:<%= margin_top %>px;">
-    <% if height && height < 45 %>
-      <div style="padding-left: 4px">
+  <div id="<%= dom_id(timeblock) %>" class="timeblock" >
+    <% if calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) < 45%>
+      <div style="padding-left: 4px; height: <%= calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) %>px">
         <%= timeblock.task_name %> 
         <%= timeblock.taskStartingTime %>
       </div>
     <% else %>
-      <div style="padding-left: 4px; padding-top: 4px">
+      <div style="padding-left: 4px; height: <%= calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) %>px; margin-top: <%= calculate_margin_to_baseline(@smallestValueInArray, timeblock.taskStartingTime) %>">
         <%= timeblock.task_name %> 
         <p style="margin: 0"><%= timeblock.taskStartingTime %> - <%= timeblock.taskEndingTime %> </p>
       </div>
     <% end %>
   </div>
-<% else %>
-  <p><%= timeblock.task_name%></p>
-  <p><%= timeblock.taskStartingTime %></p>
-  <p><%= timeblock.taskEndingTime %></p>
-<% end %>
+  
