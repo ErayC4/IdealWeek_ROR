@@ -17,13 +17,20 @@
   </div>
 
   <div>
-    <%= form.label :reason, style: "display: block" %>
+    <%= form.label :reasonnnnn, style: "display: block" %>
     <%= form.text_field :reason %>
   </div>
 
   <div>
     <%= form.label :timeblocks, style: "display: block" %>
-    <%= form.number_field :timeblocks %>
+    <% Timeblock.all.each do |timeblock| %>
+      <% if current_user == timeblock.user%>
+      <div>
+        <%= check_box_tag "journey[timeblock_ids][]", timeblock.id, journey.timeblock_ids.include?(timeblock.id) %>
+        <%= timeblock.task_name %>
+      </div>
+      <% end %>
+    <% end %>
   </div>
 
   <div>

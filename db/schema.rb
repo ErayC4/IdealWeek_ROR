@@ -10,13 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_09_163321) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_10_100828) do
   create_table "journeys", force: :cascade do |t|
     t.string "title"
     t.string "reason"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "timeblocks"
+    t.integer "user_id"
+  end
+
+  create_table "journeys_timeblocks", id: false, force: :cascade do |t|
+    t.integer "timeblock_id", null: false
+    t.integer "journey_id", null: false
+    t.index ["journey_id", "timeblock_id"], name: "index_journeys_timeblocks_on_journey_id_and_timeblock_id"
+    t.index ["timeblock_id", "journey_id"], name: "index_journeys_timeblocks_on_timeblock_id_and_journey_id"
   end
 
   create_table "timeBlocks", force: :cascade do |t|

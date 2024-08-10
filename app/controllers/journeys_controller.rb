@@ -1,6 +1,7 @@
 class JourneysController < ApplicationController
   before_action :set_journey, only: %i[ show edit update destroy ]
-
+  before_action :authenticate_user!
+  before_action :correct_user, only: %i[show edit update destroy]
   # GET /journeys or /journeys.json
   def index
     @journeys = Journey.all
@@ -8,11 +9,12 @@ class JourneysController < ApplicationController
 
   # GET /journeys/1 or /journeys/1.json
   def show
+    @journey = Journey.find(params[:id])
   end
 
   # GET /journeys/new
   def new
-    @journey = Journey.new
+    @journey = current_user.journeys.build
   end
 
   # GET /journeys/1/edit
@@ -21,7 +23,7 @@ class JourneysController < ApplicationController
 
   # POST /journeys or /journeys.json
   def create
-    @journey = Journey.new(journey_params)
+    @journey = current_user.journeys.build(journey_params)
 
     respond_to do |format|
       if @journey.save
@@ -57,6 +59,11 @@ class JourneysController < ApplicationController
     end
   end
 
+  def correct_user
+    @journey = current_user.journeys.find_by(id: params[:id])
+    redirect_to journeys_path, notice: "you cant do that" if @journey.nil?
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_journey
@@ -65,6 +72,6 @@ class JourneysController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def journey_params
-      params.require(:journey).permit(:title, :reason, :timeblocks)
+      params.require(:journey).permit(:title, :reason, :timeblocks, :user_id, timeblock_ids: [])
     end
 end

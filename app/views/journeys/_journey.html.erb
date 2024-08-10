@@ -1,17 +1,25 @@
-<div id="<%= dom_id journey %>">
-  <p>
-    <strong>Title:</strong>
-    <%= journey.title %>
-  </p>
+<!-- app/views/journeys/_journey.html.erb -->
+<% if journey.timeblocks.any? && current_user == journey.user%>
 
-  <p>
-    <strong>Reason:</strong>
-    <%= journey.reason %>
-  </p>
+<p>
+  <strong>Title:</strong>
+  <%= journey.title %>
+</p>
 
-  <p>
-    <strong>Timeblocks:</strong>
-    <%= journey.timeblocks %>
-  </p>
+<p>
+  <strong>Reason:</strong>
+  <%= journey.reason %>
+</p>
 
-</div>
+  <ul>
+    <% journey.timeblocks.each do |timeblock| %>
+      <li><%= timeblock.task_name %> </li>
+      
+    <% end %>
+    <p>
+      <%= link_to "Show this journey", journey %>
+    </p>
+  </ul>
+<% else %>
+  <p>Keine Timeblocks vorhanden.</p>
+<% end %>
