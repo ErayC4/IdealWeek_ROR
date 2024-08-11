@@ -12,17 +12,17 @@
   <% end %>
 
   <div>
-    <%= form.label :title, style: "display: block" %>
+    <p>This will help me on my journey to becoming a:</p>
     <%= form.text_field :title %>
   </div>
 
   <div>
-    <%= form.label :reasonnnnn, style: "display: block" %>
+    <p>This motivates me to get this done:</p>
     <%= form.text_field :reason %>
   </div>
 
   <div>
-    <%= form.label :timeblocks, style: "display: block" %>
+    <p>These are the steps I need to take:</p>
     <% Timeblock.all.each do |timeblock| %>
       <% if current_user == timeblock.user%>
       <div>
