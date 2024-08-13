@@ -1,24 +1,24 @@
 <head>
   <style>
     .timeblock {
-      /* 100% = breite des ganzen bildschirms, 200px weil 100px margin * 2, 32 * 6 = gap*/
-      width: calc((100% - 200px - 32px * 6) / 7); /* Anpassung der Breite um Platz für die Lücken zu schaffen */
+      width: calc((100% - 32px * 6) / 7);
       position: absolute;
       margin-left: 15px; 
-      background-color: cyan;
+      background-color: #F7C70F;
       align: center;
+      border-radius: 8px;
     }
   </style>
 </head>
 
   <div id="<%= dom_id(timeblock) %>" class="timeblock" >
     <% if calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) < 45%>
-      <div style="padding-left: 4px; height: <%= calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) %>px">
+      <div style="padding-left: 12px; height: <%= calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) %>px">
         <%= timeblock.task_name %> 
         <%= timeblock.taskStartingTime %>
       </div>
     <% else %>
-      <div style="padding-left: 4px; height: <%= calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) %>px; margin-top: <%= calculate_margin_to_baseline(@smallestValueInArray, timeblock.taskStartingTime) %>">
+      <div style="padding: 4px 12px; height: <%= calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) %>px; margin-top: <%= calculate_margin_to_baseline(@smallestValueInArray, timeblock.taskStartingTime) %>">
         <%= timeblock.task_name %> 
         <p style="margin: 0"><%= timeblock.taskStartingTime %> - <%= timeblock.taskEndingTime %> </p>
       </div>

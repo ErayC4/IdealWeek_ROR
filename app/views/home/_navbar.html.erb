@@ -10,12 +10,19 @@
         align-items: center;
         gap: 8px;
     }
-    .navbar{
-        display:flex;
+    .navbar {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
         justify-content: space-between;
         padding: 8px 32px;
-        border-bottom: solid #ccc 1px
+        border-bottom: solid #ccc 1px;
+        align-items: center;
+        background-color: #E5DCE1;
+
     }
+
+
+
 
     .navbar-items-container{
         display:flex;
@@ -26,19 +33,20 @@
     .list-button{
         background-color: white;
         border: 1px solid #ccc;
+        border-radius: 4px;
     }
-    .profile-picture{
-        object-position: center;
-        object-fit: cover;
-        border-radius: 100px;
-        width: 40px;
-        height: 40px;
-    }
-    .right-side{
+    .list-button-container{
         display: flex;
-        align-items: center; 
-        gap: 20px;
+        justify-content: flex-end;
     }
+    .date {
+        font-weight: 500;
+        font-size: 20px;
+        text-align: center;
+    }
+
+
+
 </style>
 
     
@@ -47,7 +55,9 @@
     <%#= link_to "Sign Out", destroy_user_session_path, method: :delete%>
     
     <div class="navbar">
+
         <div class="navbar-items-container">
+
             <div class="navbar-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-week" viewBox="0 0 16 16">
                     <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
@@ -74,18 +84,15 @@
         
             <%#= link_to "Edit Profile", edit_user_registration_path%>
         </div>
-
-        <div class="right-side">
+        <p class="date">7. August 2024</p>
+        <div class="list-button-container">
             <button class="list-button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                <svg style="padding-top: 2px;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
                 </svg>
             </button>
-            <img
-            src="https://i.pinimg.com/originals/cc/a9/bb/cca9bbab00fa1a880a11fefa99616458.jpg"
-            class="profile-picture"
-            >
         </div>
+        
     </div>
     
 
