@@ -109,11 +109,19 @@
       border-radius: 999px;
       margin-top: 2px;
     }
-    .date-active-container{
+    .date-not-active{ 
+      font-size: 30px;
+      color: black;
+      padding: 6px 8px;
+      border-radius: 999px;
+      margin-top: 2px;
+    }
+    .date-container{
       width: 100%;
       display: flex;
       justify-content: center; 
     }
+
   </style>
 </head>
 
@@ -153,15 +161,27 @@
         
         <% (1..7).each do |day| %>
           <div class="weekday-item">
-            <p style="color: #FF6600"><%= Time.now.strftime("%a") %></p>
-            <div class="date-active-container">
-              <div class="date-active"> 
+            <p style="color: <%= Time.now.strftime("%w").to_i == day ? "#FF6600" : "black" %>"><%= (Time.now + (day - Time.now.strftime("%w").to_i) * 24 * 60 * 60).strftime("%a") %></p>
+            <div class="date-container">
+                <%# if Time.now.strftime("%w").to_i == day%>
+                  <%#= Time.now.strftime("%d").to_i %>
+                <%# else %>
+                  <%#= Time.now.strftime("%d").to_i + day - Time.now.strftime("%w").to_i%>
+                <%# end %>
+
                 <% if Time.now.strftime("%w").to_i == day%>
-                  <%= Time.now.strftime("%d").to_i %>
+                  <div class="date-active"> 
+                    <%= Time.now.strftime("%d").to_i %>
+                  </div>
+                <% elsif Time.now.strftime("%d").to_i >= 30 && Time.now.strftime("%m").to_i % 2 == 0%>
+                  <div class="date-not-active"> 
+                    <%= day - Time.now.strftime("%w").to_i < 0 ? Time.now.strftime("%d").to_i + day - Time.now.strftime("%w").to_i : day - Time.now.strftime("%w").to_i%>
+                  </div>
                 <% else %>
-                  <%= Time.now.strftime("%d").to_i + day - Time.now.strftime("%w").to_i%>
+                  <div class="date-not-active">
+                    <%= Time.now.strftime("%d").to_i + day - Time.now.strftime("%w").to_i%>
+                  </div>
                 <% end %>
-              </div>
             </div>
           </div>
 
