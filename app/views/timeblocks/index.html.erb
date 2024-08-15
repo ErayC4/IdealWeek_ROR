@@ -27,7 +27,7 @@
     }
     .small-line {
       height: 1px; 
-      background-color: #D4CBD0; 
+      background-color: #DBDBDB; 
       margin-bottom: 29px;
     }
     .lines-container {
@@ -41,12 +41,12 @@
     .weekdays-navbar-container {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      border-bottom: 1px solid #D4CBD0;
+      border-bottom: 1px solid #DBDBDB;
     }
     .weekday-item {
 
       text-align: center;
-      border-left: 1px solid #D4CBD0;
+      border-left: 1px solid #DBDBDB;
       padding: 16px 0px;
     }
     
@@ -58,8 +58,8 @@
     }
 
     .grid-item {
-      border-left: 1px solid #D4CBD0;
-      border-bottom: 1px solid #D4CBD0;
+      border-left: 1px solid #DBDBDB;
+      border-bottom: 1px solid #DBDBDB;
       padding: 29.5px;
       text-align: center;
     }
@@ -86,13 +86,13 @@
       display: flex;
       align-items: center;
       gap: 4px;
-      background-color: #615654;
+      background-color: #FF6600;
       margin-bottom: 32px;
 
     }
     .container{
       padding: 64px 128px;
-      background-color: #E5DCE1;
+      background-color: white;
       display:flex;
       flex-direction: column;
 
@@ -103,8 +103,8 @@
     }
     .date-active{ 
       font-size: 30px;
-      color: #D4CBD0;
-      background-color: #1E4EB0;
+      color: white;
+      background-color: #FF6600;
       padding: 6px 8px;
       border-radius: 999px;
       margin-top: 2px;
@@ -121,15 +121,15 @@
   
   <div class="container">
     <button class="create-timeblock-button">
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#F7C70F" class="bi bi-plus-lg" viewBox="0 0 16 16">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" class="bi bi-plus-lg" viewBox="0 0 16 16">
       <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
     </svg>
-    <span><%= link_to "New Timeblock", new_timeblock_path, style:"text-decoration: none; color: #F7C70F" %> </span>
+    <span><%= link_to "New Timeblock", new_timeblock_path, style:"text-decoration: none; color: white" %> </span>
   </button>
     <div class="calender-container">
         <div class="timeline">
           <div class="timeline-hours-container">
-<div class="timeline-hours">
+            <div class="timeline-hours">
           <% (0..23).each do |hour| %>
             <div class="timeline-item">
               <%= hour < 10 ? "0" : "" %><%= hour %>:00
@@ -151,11 +151,17 @@
     <div class="content">
       <div class="weekdays-navbar-container">
         
-        <% (0..6).each do |day| %>
+        <% (1..7).each do |day| %>
           <div class="weekday-item">
-            <p style="color: #1E4EB0">Mon</p>
+            <p style="color: #FF6600"><%= Time.now.strftime("%a") %></p>
             <div class="date-active-container">
-              <div class="date-active">22</div>
+              <div class="date-active"> 
+                <% if Time.now.strftime("%w").to_i == day%>
+                  <%= Time.now.strftime("%d").to_i %>
+                <% else %>
+                  <%= Time.now.strftime("%d").to_i + day - Time.now.strftime("%w").to_i%>
+                <% end %>
+              </div>
             </div>
           </div>
 
@@ -164,9 +170,9 @@
 
       <div class="grid-container">
         <% (0..6).each do |day| %>
-        <% (0..23).each do |hour| %>
-        <div class="grid-item"></div>
-        <% end %>
+          <% (0..23).each do |hour| %>
+            <div class="grid-item"></div>
+          <% end %>
         <% end %>
       </div>
 
@@ -174,15 +180,15 @@
         <% (0..6).each do |day| %>
         <div>
           <% @timeblocks.each do |timeblock| %>
-          <% if timeblock.user == current_user %>
-          <% if timeblock.repeatOnDay == day || timeblock.dailyRepeat == true %>
-          <div style="margin-top: <%= calculate_margin_to_baseline(@smallestValueInArray, timeblock.taskStartingTime) %>px; width: 100%">
-            <%= render timeblock %>
-          </div>
-          <% else %>
-          <%= "" %>
-          <% end %>
-          <% end %>
+            <% if timeblock.user == current_user %>
+              <% if timeblock.repeatOnDay == day || timeblock.dailyRepeat == true %>
+              <div style="margin-top: <%= calculate_margin_to_baseline(@smallestValueInArray, timeblock.taskStartingTime) %>px; width: 100%">
+                <%= render timeblock %>
+              </div>
+              <% else %>
+                <%= "" %>
+              <% end %>
+            <% end %>
           <% end %>
         </div>
         <% end %>

@@ -17,7 +17,6 @@
         padding: 8px 32px;
         border-bottom: solid #ccc 1px;
         align-items: center;
-        background-color: #E5DCE1;
 
     }
 
@@ -84,7 +83,7 @@
         
             <%#= link_to "Edit Profile", edit_user_registration_path%>
         </div>
-        <p class="date">7. August 2024</p>
+        <p class="date"><%= Time.now.strftime("%d %B %Y")%></p>
         <div class="list-button-container">
             <button class="list-button">
                 <svg style="padding-top: 2px;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
