@@ -4,6 +4,10 @@
       display: flex;
       align-items: start; /* Stellt sicher, dass die Timeline und der Restinhalt oben ausgerichtet sind */
     }
+
+    .timeblock {
+      position: absolute;
+    }
     
     .timeline {
       display: flex;
@@ -140,7 +144,7 @@
             <div class="timeline-hours">
           <% (0..23).each do |hour| %>
             <div class="timeline-item">
-              <%= hour < 10 ? "0" : "" %><%= hour %>:00
+              <%= hour + @smallestValueInArray - 24 < 10 && hour + @smallestValueInArray - 24 > 0 ? "0" : "" %><%= hour + @smallestValueInArray > 23 ? @smallestValueInArray + hour - 24 : hour + @smallestValueInArray%>:00
             </div>
           <% end %>
           </div>
@@ -202,7 +206,7 @@
           <% @timeblocks.each do |timeblock| %>
             <% if timeblock.user == current_user %>
               <% if timeblock.repeatOnDay == day || timeblock.dailyRepeat == true %>
-              <div style="margin-top: <%= calculate_margin_to_baseline(@smallestValueInArray, timeblock.taskStartingTime) %>px; width: 100%">
+              <div class="timeblock" style="margin-top: <%= calculate_margin_to_baseline(@smallestValueInArray, timeblock.taskStartingTime) %>px; width: 100%">
                 <%= render timeblock %>
               </div>
               <% else %>

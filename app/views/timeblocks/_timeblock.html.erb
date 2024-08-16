@@ -2,12 +2,12 @@
   <style>
     .timeblock {
       width: calc((100% - 32px * 6) / 7);
-      position: absolute;
-      margin-left: 15px; 
       background-color: #FF6600;
       align: center;
       color: white; 
+      margin-left: 7px;
       border-radius: 8px;
+
     }
     .journey-container {
       background-color: orange;
@@ -21,14 +21,16 @@
 
   <div id="<%= dom_id(timeblock) %>" class="timeblock" >
     <% if calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) < 45%>
-      <div style="padding-left: 12px; height: <%= calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) %>px">
+      <div style="padding-left: 12px; height: <%= calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) - 4 %>px">
         <%= timeblock.task_name %> 
         <%= timeblock.taskStartingTime %>
+        <%= calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) %>
       </div>
     <% else %>
-      <div style="padding: 4px 12px; height: <%= calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) %>px; margin-top: <%= calculate_margin_to_baseline(@smallestValueInArray, timeblock.taskStartingTime) %>">
+      <div style="padding: 4px 12px; height: <%= calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) - 8 %>px; ">
         <%= timeblock.task_name %> 
         <p style="margin: 0"><%= timeblock.taskStartingTime %> - <%= timeblock.taskEndingTime %> </p>
+        <%# an mich morgen, die höhe muss noch vom padding abgezogen werden und margin wird richtig berechnet%>
           <% timeblock.journeys.each do |journey| %>
             <div class="journey-container">
               <p>becoming a <%= journey.title %> </p>
