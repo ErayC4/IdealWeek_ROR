@@ -103,6 +103,6 @@ class TimeblocksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def timeblock_params
-      params.require(:timeblock).permit(:task_name, :taskStartingTime, :taskEndingTime, :repeatOnDay, :dailyRepeat, :user_id)
+      params.require(:timeblock).permit(:task_name, :taskStartingTime, :taskEndingTime, :repeatOnDay, :dailyRepeat, :user_id, :after_completing)
     end
 end

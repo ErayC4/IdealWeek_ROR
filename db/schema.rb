@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_10_100828) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_16_121923) do
   create_table "journeys", force: :cascade do |t|
     t.string "title"
     t.string "reason"
@@ -36,6 +36,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_10_100828) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.string "after_completing"
     t.index ["user_id"], name: "index_timeblocks_on_user_id"
   end
 

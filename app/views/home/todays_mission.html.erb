@@ -1,11 +1,111 @@
+<style>
+  .main-container {
+    margin: 0px 128px;
+  }
+  .dot {
+    height: 8px;
+    width: 8px;
+    background-color: black;
+    border-radius: 99px;
+    margin-right: 12px;
+  }
+  .dot-and-time {
+    display: flex;
+    align-items: center;
+  }
+  .todo-card-container {
+    border-left: solid 1px #ccc;
+    margin-left: 4px;
+    padding-top: 8px;
+    padding-bottom: 32px;
+    padding-left: 16px; 
+  }
+  .todo-card {
+    width: 33%;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: solid #ADA7C8 2px;
+  }
+
+  .task-name {
+    font-size: 20px;
+  }
+  .todo-now{
+    background-color: #CFCAE3;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-radius: 99px;
+    width: 100%;
+  }
+  .todo-now-container{
+    margin-top: 4px;
+    display: flex; 
+    align-items: center;
+  }
+  .check-box {
+    width: 26px;
+    height: 26px;
+    border: 2px solid #ADA7C8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box; /* Inklusive border in die Größenberechnung */
+    padding: 0; /* Stellen Sie sicher, dass kein Padding vorhanden ist */
+    margin-left: 12px;
+}
+
+.add-new-task-container{
+  margin-top: 12px;
+  display: inline-flex; 
+  border: solid 2px #ADA7C8;
+  border-radius: 999px;
+  height: 26px;
+  align-items: center; 
+}
+.plus-svg{
+  padding-left: 12px;
+}
+</style>
 <h1>Todays Mission</h1>
+
 <% @timeblocks.each do |timeblock| %>
-<% if timeblock.repeatOnDay == @dayIndex && timeblock.user == current_user%>
-    <div>
-    <%= timeblock.task_name %>
-    <%= timeblock.repeatOnDay%>
-    <%= timeblock.taskStartingTime%>
-    <%= timeblock.taskEndingTime%>
+<% if (timeblock.repeatOnDay == @dayIndex || timeblock.dailyRepeat == true) && timeblock.user == current_user%>
+    <div class="main-container">
+      <div>
+        <div class="dot-and-time">
+          <div class="dot"></div>
+          <p><%= timeblock.taskStartingTime%> - <%= timeblock.taskEndingTime%></p>
+        </div>
+
+        <div class="todo-card-container">
+          <div class="todo-card">
+            <p class="task-name"><%= timeblock.task_name %> </p>
+              <div class="todo-now-container">
+                <p class="todo-now"><span style="padding-left: 12px;">I need to do this </span></p>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="check-box" width="20" height="20" fill="#ADA7C8" viewBox="0 0 16 16">
+                    <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
+                  </svg>
+              </div>
+              <div class="add-new-task-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="plus-svg" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                </svg>
+                <p class=""><span style="padding-left: 4px; padding-right: 12px; ">Add new Task</span></p>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <% timeblock.journeys.each do |journey| %>
+            <div class="journey-container">
+              <p>becoming a <%= journey.reason %> </p>
+            </div>
+          <% end %>
+      </div>
   </div>
 <% end %>
   

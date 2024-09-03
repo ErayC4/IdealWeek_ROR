@@ -27,6 +27,11 @@
   </div>
 
   <div>
+    <%= form.label :after_completing, style: "display: block" %>
+    <%= form.text_field :after_completing %>
+  </div>
+
+  <div>
   <%= form.label :repeatOnDay, "Wochentag auswählen", style: "display: block" %>
   <%= form.select :repeatOnDay, options_for_select([["Montag", 0], ["Dienstag", 1], ["Mittwoch", 2], ["Donnerstag", 3], ["Freitag", 4], ["Samstag", 5], ["Sonntag", 6]]), {}, { class: 'form-control' } %>
 </div>

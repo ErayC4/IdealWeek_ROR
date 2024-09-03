@@ -24,7 +24,6 @@
       <div style="padding-left: 12px; height: <%= calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) - 4 %>px">
         <%= timeblock.task_name %> 
         <%= timeblock.taskStartingTime %>
-        <%= calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) %>
       </div>
     <% else %>
       <div style="padding: 4px 12px; height: <%= calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) - 8 %>px; ">
