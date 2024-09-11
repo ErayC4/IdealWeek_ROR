@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_16_121923) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_11_115245) do
   create_table "journeys", force: :cascade do |t|
     t.string "title"
     t.string "reason"
@@ -25,6 +25,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_16_121923) do
     t.integer "journey_id", null: false
     t.index ["journey_id", "timeblock_id"], name: "index_journeys_timeblocks_on_journey_id_and_timeblock_id"
     t.index ["timeblock_id", "journey_id"], name: "index_journeys_timeblocks_on_timeblock_id_and_journey_id"
+  end
+
+  create_table "subtasks", force: :cascade do |t|
+    t.string "name"
+    t.string "left_of_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subtasks_timeblocks", id: false, force: :cascade do |t|
+    t.integer "subtask_id", null: false
+    t.integer "timeblock_id", null: false
+    t.index ["subtask_id", "timeblock_id"], name: "index_subtasks_timeblocks_on_subtask_id_and_timeblock_id"
+    t.index ["timeblock_id", "subtask_id"], name: "index_subtasks_timeblocks_on_timeblock_id_and_subtask_id"
   end
 
   create_table "timeBlocks", force: :cascade do |t|

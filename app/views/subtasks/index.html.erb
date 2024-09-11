@@ -1,8 +1,11 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Subtasks</h1>
 <style>
   .main-container {
     margin: 0 128px;
     display: grid;
-    grid-template-columns: 1fr 2fr; /* Left side nimmt 2/3, right side 1/3 */
+    grid-template-columns: 1fr 1fr; /* Left side nimmt 2/3, right side 1/3 */
     gap: 16px; /* Abstand zwischen den beiden Spalten */  }
   
   .dot {
@@ -82,22 +85,59 @@
   margin-left: 8px;
 }
 </style>
-<h1>Todays Mission</h1>
-  <div class="main-container">
+<body>
+<script>
+  // Dein JavaScript-Code hier
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hole alle Elemente mit der Klasse "todo-card"
+    var todoCards = document.querySelectorAll('.todo-card');
+    
+    // Füge jedem Element einen Event-Listener hinzu
+    todoCards.forEach(function(todoCard) {
+        todoCard.addEventListener('click', function() {
+            // Greife auf das data-task-id-Attribut zu
+            var taskId = todoCard.dataset.taskId;
+            console.log('clicked task id: ' + taskId);
+            
+            // Hole alle Elemente mit der Klasse "journey-container"
+            const journeyContainers = document.querySelectorAll('.journey-container');
+            
+            // Durch alle journeyContainers iterieren
+            journeyContainers.forEach(container => {
+                // Den Wert des 'data-task'-Attributs auslesen
+                const taskValue = container.getAttribute('data-task');
+                
+                // Überprüfe, ob die taskId in den journeyContainers vorhanden ist
+                if (taskId === taskValue) {
+                    container.style.display = 'block'; // Zeige das Element an
+                } else {
+                    container.style.display = 'none'; // Blende das Element aus
+                }
+            });
+        });
+    });
+});
+
+
+  
+</script>
+
+<div id="subtasks">
+      <div class="main-container">
     <div>
       <% @timeblocks.each do |timeblock| %>
         <% if (timeblock.repeatOnDay == @dayIndex || timeblock.dailyRepeat == true) && timeblock.user == current_user%>
         <div class="left-side">
           <div class="dot-and-time">
             <div class="dot"></div>
-            <p><%= timeblock.taskStartingTime%> - <%= timeblock.taskEndingTime%></p>
+            <p><%= timeblock.taskStartingTime%> - <%= timeblock.taskEndingTime%> </p>
           </div>
 
-          <div class="todo-card-container">
-            <div class="todo-card">
+          <div class="todo-card-container" >
+            <div class="todo-card" id="todo-card" data-task-id="<%= timeblock.id %>">
               <p class="task-name"><%= timeblock.task_name %></p>
                 <div class="todo-now-container">
-                  <p class="todo-now"><span style="padding-left: 12px;">I need to do this </span></p>
+                  <p class="todo-now"><span style="padding-left: 12px;"> <% timeblock.subtasks.each do |subtask|%> <%= subtask.name %> <% end %></span></p>
                     <svg xmlns="http://www.w3.org/2000/svg" class="check-box" width="20" height="20" fill="#ADA7C8" viewBox="0 0 16 16">
                       <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
                     </svg>
@@ -106,14 +146,14 @@
                 <div class="left-of-at">
 
                   <p style="flex-shrink: 0;">where i left of: </p>
-                  <input class="left-of-at-input-field">
+                  <input class="left-of-at-input-field" placeholder="ee">
                 </div>
 
                 <div class="add-new-task-container">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="plus-svg" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
                   </svg>
-                  <p><span style="padding-left: 4px; padding-right: 12px; ">Add new Task</span></p>
+                  <p><span style="padding-left: 4px; padding-right: 12px; "><%= link_to "New subtask", new_subtask_path %></span></p>
                 </div>
               </div>
           </div>
@@ -125,16 +165,16 @@
     <div>
       <% @timeblocks.each do |timeblock| %>
         <% timeblock.journeys.each do |journey| %>
-          <% if (timeblock.repeatOnDay == @dayIndex || timeblock.dailyRepeat == true) && timeblock.user == current_user%>
+          <% if (timeblock.repeatOnDay == @dayIndex || timeblock.dailyRepeat == true) && timeblock.user == current_user %>
 
-          <div class="journey-container">
-            <p>becoming a <%= journey.title %> </p>
+          <div class="journey-container" data-task="<%= timeblock.id %>">
+            <p >becoming a <%= journey.title %> <%= timeblock.id %></p>
           </div>
           <% end %>
         <% end %> 
       <% end %>
     </div>
   </div>
+</div>
+</body>
 
-  
-      

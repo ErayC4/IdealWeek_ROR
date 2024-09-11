@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :subtasks
   resources :journeys
   devise_for :users
 
@@ -7,7 +8,6 @@ Rails.application.routes.draw do
   end
   resources :timeblocks
   root 'home#index'
-  get 'home/todays_mission'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
