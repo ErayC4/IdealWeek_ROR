@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_11_115245) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_15_111933) do
   create_table "journeys", force: :cascade do |t|
     t.string "title"
     t.string "reason"
@@ -42,10 +42,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_11_115245) do
   end
 
   create_table "timeBlocks", force: :cascade do |t|
-    t.string "task_name"
-    t.string "taskStartingTime"
-    t.string "taskEndingTime"
-    t.integer "repeatOnDay"
+    t.string "name"
+    t.string "starting_time"
+    t.string "ending_time"
+    t.integer "repeat_on_day"
     t.boolean "dailyRepeat"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

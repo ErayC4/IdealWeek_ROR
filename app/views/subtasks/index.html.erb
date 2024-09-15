@@ -178,16 +178,16 @@
   <div class="main-container">
     <div>
       <% @timeblocks.each do |timeblock| %>
-        <% if (timeblock.repeatOnDay == @dayIndex || timeblock.dailyRepeat == true) && timeblock.user == current_user %>
+        <% if (timeblock.repeat_on_day == @dayIndex || timeblock.dailyRepeat == true) && timeblock.user == current_user %>
           <div class="left-side">
             <div class="dot-and-time">
               <div class="dot"></div>
-              <p><%= timeblock.taskStartingTime %> - <%= timeblock.taskEndingTime %></p>
+              <p><%= timeblock.starting_time %> - <%= timeblock.ending_time %></p>
             </div>
 
             <div class="todo-card-container">
               <div class="todo-card" id="todo-card" data-task-id="<%= timeblock.id %>">
-                <p class="task-name"><%= timeblock.task_name %></p>
+                <p class="task-name"><%= timeblock.name %></p>
                 <div class="todo-now-container">
                   <p class="todo-now">
                     <span style="padding-left: 12px;">
@@ -220,9 +220,9 @@
 
     <div>
       <% @timeblocks.each do |timeblock| %>
-        <% if (timeblock.repeatOnDay == @dayIndex || timeblock.dailyRepeat == true) && timeblock.user == current_user %>
+        <% if (timeblock.repeat_on_day == @dayIndex || timeblock.dailyRepeat == true) && timeblock.user == current_user %>
           <div class="right-side" data-task="<%= timeblock.id %>">
-            <p class="task"><%= timeblock.task_name %></p>
+            <p class="task"><%= timeblock.name %></p>
             <% timeblock.journeys.each do |journey| %>
               <div class="goal-container">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-flag" viewBox="0 0 16 16">
@@ -234,7 +234,7 @@
 
             <% timeblock.subtasks.each do |subtask| %>
               <div class="subtasks-container">
-                <p style="font-size: 20px;"><%= timeblock.taskStartingTime %> - <%= timeblock.taskEndingTime %> <%= subtask.name %></p>
+                <p style="font-size: 20px;"><%= timeblock.starting_time %> - <%= timeblock.ending_time %> <%= subtask.name %></p>
               </div>
               <%= form_with(model: subtask, url: subtask_path(subtask), method: :patch, local: true) do |form| %>
                 <p style="margin-top: 12px; margin-bottom: 4px;">Left of at: </p>

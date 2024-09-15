@@ -27,7 +27,7 @@
       <% if current_user == timeblock.user%>
       <div>
         <%= check_box_tag "journey[timeblock_ids][]", timeblock.id, journey.timeblock_ids.include?(timeblock.id) %>
-        <%= timeblock.task_name %>
+        <%= timeblock.name %>
       </div>
       <% end %>
     <% end %>

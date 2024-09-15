@@ -8,7 +8,7 @@ class TimeblocksController < ApplicationController
     @timeblocks = Timeblock.all
     @roundedStartingTimeArray = @timeblocks.map do |timeblock|
       if timeblock.user_id == current_user.id
-        roundStartingTimeToHour(timeblock.taskStartingTime)
+        roundStartingTimeToHour(timeblock.starting_time)
       else
         24 
         #some number over 23, because there is no time where it hits 24, thus, if the user is not the current user, 
@@ -103,6 +103,6 @@ class TimeblocksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def timeblock_params
-      params.require(:timeblock).permit(:task_name, :taskStartingTime, :taskEndingTime, :repeatOnDay, :dailyRepeat, :user_id, :after_completing)
+      params.require(:timeblock).permit(:name, :starting_time, :ending_time, :repeat_on_day, :dailyRepeat, :user_id, :after_completing)
     end
 end

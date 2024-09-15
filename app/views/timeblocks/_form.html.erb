@@ -12,18 +12,18 @@
   <% end %>
 
   <div>
-    <%= form.label :task_name, style: "display: block" %>
-    <%= form.text_field :task_name %>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
   </div>
 
   <div>
-    <%= form.label :taskStartingTime, style: "display: block" %>
-    <%= form.time_field :taskStartingTime %>
+    <%= form.label :starting_time, style: "display: block" %>
+    <%= form.time_field :starting_time %>
   </div>
 
   <div>
-    <%= form.label :taskEndingTime, style: "display: block" %>
-    <%= form.time_field :taskEndingTime %>
+    <%= form.label :ending_time, style: "display: block" %>
+    <%= form.time_field :ending_time %>
   </div>
 
   <div>
@@ -32,8 +32,8 @@
   </div>
 
   <div>
-  <%= form.label :repeatOnDay, "Wochentag auswählen", style: "display: block" %>
-  <%= form.select :repeatOnDay, options_for_select([["Montag", 0], ["Dienstag", 1], ["Mittwoch", 2], ["Donnerstag", 3], ["Freitag", 4], ["Samstag", 5], ["Sonntag", 6]]), {}, { class: 'form-control' } %>
+  <%= form.label :repeat_on_day, "Wochentag auswählen", style: "display: block" %>
+  <%= form.select :repeat_on_day, options_for_select([["Montag", 0], ["Dienstag", 1], ["Mittwoch", 2], ["Donnerstag", 3], ["Freitag", 4], ["Samstag", 5], ["Sonntag", 6]]), {}, { class: 'form-control' } %>
 </div>
 
 

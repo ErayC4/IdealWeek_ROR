@@ -20,15 +20,15 @@
 </head>
 
   <div id="<%= dom_id(timeblock) %>" class="timeblock" >
-    <% if calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) < 45%>
-      <div style="padding-left: 12px; height: <%= calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) - 4 %>px">
-        <%= timeblock.task_name %> 
-        <%= timeblock.taskStartingTime %>
+    <% if calculate_height(timeblock.starting_time, timeblock.ending_time) < 45%>
+      <div style="padding-left: 12px; height: <%= calculate_height(timeblock.starting_time, timeblock.ending_time) - 4 %>px">
+        <%= timeblock.name %> 
+        <%= timeblock.starting_time %>
       </div>
     <% else %>
-      <div style="padding: 4px 12px; height: <%= calculate_height(timeblock.taskStartingTime, timeblock.taskEndingTime) - 8 %>px; ">
-        <%= timeblock.task_name %> 
-        <p style="margin: 0"><%= timeblock.taskStartingTime %> - <%= timeblock.taskEndingTime %> </p>
+      <div style="padding: 4px 12px; height: <%= calculate_height(timeblock.starting_time, timeblock.ending_time) - 8 %>px; ">
+        <%= timeblock.name %> 
+        <p style="margin: 0"><%= timeblock.starting_time %> - <%= timeblock.ending_time %> </p>
         <%# an mich morgen, die höhe muss noch vom padding abgezogen werden und margin wird richtig berechnet%>
           <% timeblock.journeys.each do |journey| %>
             <div class="journey-container">

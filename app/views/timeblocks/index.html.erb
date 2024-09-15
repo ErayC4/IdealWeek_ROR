@@ -205,8 +205,8 @@
         <div>
           <% @timeblocks.each do |timeblock| %>
             <% if timeblock.user == current_user %>
-              <% if timeblock.repeatOnDay == day || timeblock.dailyRepeat == true %>
-              <div class="timeblock" style="margin-top: <%= calculate_margin_to_baseline(@smallestValueInArray, timeblock.taskStartingTime) %>px; width: 100%">
+              <% if timeblock.repeat_on_day == day || timeblock.dailyRepeat == true %>
+              <div class="timeblock" style="margin-top: <%= calculate_margin_to_baseline(@smallestValueInArray, timeblock.starting_time) %>px; width: 100%">
                 <%= render timeblock %>
               </div>
               <% else %>
